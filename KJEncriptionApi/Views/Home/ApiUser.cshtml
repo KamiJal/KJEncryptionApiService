@@ -1,0 +1,90 @@
+﻿@model KJEncryptionApi.Models.User
+@{
+    ViewBag.Title = "ApiUser";
+    Layout = "~/Views/Encryption/_Layout.cshtml";
+}
+
+<h2>Регистрация</h2>
+
+@using (Ajax.BeginForm("Register", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "token" }))
+{
+
+    <div class="form-group">
+        @Html.LabelFor(q => q.Name, new { @class = "control-label" })
+        @Html.TextBoxFor(q => q.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(q => q.Password)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(q => q.Email, new { @class = "control-label" })
+        @Html.TextBoxFor(q => q.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(q => q.Password)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(q => q.Password, new { @class = "control-label" })
+        @Html.TextBoxFor(q => q.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(q => q.Password)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>YOUR TOKEN:</h2>
+        <div class="h4" id="token"></div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    
+    <div class="col-lg-6">
+        @using (Ajax.BeginForm("Encode", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "encoded" }))
+        {
+
+            <div class="form-group">
+                @Html.Label("Token", new { @class = "control-label" })
+                @Html.TextBox("token", "", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Text", new { @class = "control-label" })
+                @Html.TextArea("text", "", new { @class = "form-control" })
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send</button>
+        }
+
+        <h2>ENCODED:</h2>
+        <textarea id="encoded" cols="100" rows="5" class="form-control"></textarea>
+    </div>
+
+    <div class="col-lg-6">
+        @using (Ajax.BeginForm("Decode", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "decoded" }))
+        {
+
+            <div class="form-group">
+                @Html.Label("Token", new { @class = "control-label" })
+                @Html.TextBox("token", "", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Text", new { @class = "control-label" })
+                @Html.TextArea("text", "", new { @class = "form-control" })
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send</button>
+        }
+
+        <h2>DECODED:</h2>
+        <textarea id="decoded" cols="100" rows="5" class="form-control"></textarea>
+    </div>
+
+
+
+
+
+</div>
